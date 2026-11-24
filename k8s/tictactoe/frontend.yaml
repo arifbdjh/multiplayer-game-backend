@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: arifbdjh/tictactoe-frontend:v1
+          image: arifbdjh/tictactoe-frontend:v2
           ports:
             - name: http
               containerPort: 80
