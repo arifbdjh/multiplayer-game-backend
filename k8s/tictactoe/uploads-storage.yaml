@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: tictactoe-uploads-pv
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  claimRef:
+    namespace: tictactoe
+    name: tictactoe-uploads
+  nfs:
+    server: 192.168.0.133
+    path: /srv/nfs/app-data/tictactoe-uploads
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: tictactoe-uploads
+  namespace: tictactoe
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ""
+  volumeName: tictactoe-uploads-pv
+  resources:
+    requests:
+      storage: 1Gi
