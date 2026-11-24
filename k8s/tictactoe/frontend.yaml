@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: tictactoe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tictactoe-frontend
+  template:
+    metadata:
+      labels:
+        app: tictactoe-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: arifbdjh/tictactoe-frontend:v1
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 15
+            timeoutSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: tictactoe
+spec:
+  type: ClusterIP
+  selector:
+    app: tictactoe-frontend
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
