@@ -21,7 +21,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: backend
-          image: arifbdjh/tictactoe-backend:v1
+          image: arifbdjh/tictactoe-backend:sha-582927cbf83659da668784d21c7e1781cf6fd77b
           ports:
             - name: http
               containerPort: 5000

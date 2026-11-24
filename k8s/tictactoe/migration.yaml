@@ -19,7 +19,7 @@ spec:
         runAsGroup: 1000
       containers:
         - name: migrate
-          image: arifbdjh/tictactoe-backend:v1
+          image: arifbdjh/tictactoe-backend:sha-582927cbf83659da668784d21c7e1781cf6fd77b
           workingDir: /app/server
           command:
             - node
