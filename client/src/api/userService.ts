@@ -4,8 +4,8 @@ import type { PublicUser, OwnUser, UserPreferences } from '@mpg/shared/types/use
 import type { MatchRecord } from '@mpg/shared/types/match';
 
 export const getPublicProfile = async (username: string): Promise<PublicUser> => {
-  const res = await api.get<ApiResponse<PublicUser>>(`/users/${username}`);
-  return res.data.data;
+  const res = await api.get<ApiResponse<{ user: PublicUser }>>(`/users/${username}`);
+  return res.data.data.user;
 };
 
 export const updatePreferences = async (
